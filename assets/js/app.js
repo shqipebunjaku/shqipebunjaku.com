@@ -29,6 +29,7 @@ const pageTitles = {
 
 let current = null;
 let postsLoaded = false;
+let latestPostsLoaded = false;
 
 const footerMarkup = `<div class="footer-inner">
   <span class="footer-copy">&copy; 2026 Shqipe Bunjaku. All rights reserved.</span>
@@ -92,6 +93,25 @@ function initializeCookieConsent() {
   });
 }
 
+function initializeCalendly() {
+  const shell = document.getElementById("calendlyFrameShell");
+  const button = document.querySelector("[data-load-calendly]");
+  if (!shell || !button) return;
+
+  button.addEventListener("click", () => {
+    if (shell.querySelector("iframe")) return;
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://calendly.com/shqipeebunjakuu/30min?embed_domain=shqipebunjaku.com&embed_type=Inline";
+    iframe.title = "Schedule a 30-minute meeting with Shqipe Bunjaku";
+    iframe.loading = "lazy";
+    iframe.allow = "payment";
+    shell.replaceChildren(iframe);
+    button.textContent = "Calendar loaded";
+    button.disabled = true;
+    iframe.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
 function normalizePath(pathname) {
   if (pathname.length > 1) return pathname.replace(/\/$/, "");
   return pathname;
@@ -129,6 +149,7 @@ function showPage(page) {
     link.classList.toggle("active", link.dataset.page === page);
   });
 
+  if (page === "home") loadLatestPosts();
   if (page === "writings") loadPosts();
 }
 
@@ -159,13 +180,13 @@ function escapeHtml(value = "") {
   return element.innerHTML;
 }
 
-function postCard(post) {
+function postCard(post, extraClass = "") {
   const tags = Array.isArray(post.tags) ? post.tags.join(" · ") : "Article";
   const cover = post.cover_image_url
     ? `<div class="writing-thumb"><img src="${escapeHtml(post.cover_image_url)}" alt="" loading="lazy"></div>`
-    : "";
+    : `<div class="writing-thumb writing-thumb-placeholder"><img src="/assets/images/sb-monogram.svg" alt="" loading="lazy"></div>`;
 
-  return `<a href="/writings/${encodeURIComponent(post.slug)}" class="writing-card writing-card-db">
+  return `<a href="/writings/${encodeURIComponent(post.slug)}" class="writing-card writing-card-db ${extraClass}">
     ${cover}
     <div class="writing-card-copy">
       <div class="w-tag">${escapeHtml(tags)} · ${formatDate(post.published_at || post.created_at)}</div>
@@ -174,6 +195,37 @@ function postCard(post) {
       <span class="writing-read">Read article &rarr;</span>
     </div>
   </a>`;
+}
+
+async function loadLatestPosts() {
+  if (latestPostsLoaded) return;
+  const grid = document.getElementById("latestWritingsGrid");
+  const loading = document.getElementById("latestWritingsLoading");
+  if (!grid) return;
+
+  if (!isSupabaseConfigured) {
+    if (loading) loading.textContent = "Latest writings will appear here once Supabase is connected.";
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select("id,title,slug,excerpt,cover_image_url,tags,published_at,created_at")
+    .eq("status", "published")
+    .order("published_at", { ascending: false })
+    .limit(3);
+
+  loading?.remove();
+  if (error) {
+    console.error("Unable to load latest writings", error);
+    grid.innerHTML = `<p class="latest-empty">Latest writings are temporarily unavailable.</p>`;
+    return;
+  }
+
+  grid.innerHTML = data?.length
+    ? data.map((post) => postCard(post, "latest-writing-card")).join("")
+    : `<p class="latest-empty">New writing is coming soon.</p>`;
+  latestPostsLoaded = true;
 }
 
 async function loadPosts() {
@@ -258,6 +310,7 @@ Object.assign(window, { toggleMenu, closeMenu });
 ensureSiteFooters();
 initializeTheme();
 initializeCookieConsent();
+initializeCalendly();
 navigate(window.location.pathname, { replace: true });
 
 export { supabase, isSupabaseConfigured };

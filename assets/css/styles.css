@@ -166,6 +166,19 @@ nav{
   font-size:2.8rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;
 }
 .stat-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.latest-writings{padding:6rem 5rem 7rem;background:var(--bg);border-top:1px solid var(--border)}
+.latest-writings-header{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:3rem}
+.latest-writings-header h2{font-family:"Playfair Display",serif;font-size:clamp(2.5rem,4vw,4.5rem);font-weight:700;line-height:1.05;color:var(--text);margin:0}
+.latest-writings-header h2 em{color:var(--gold);font-weight:400}
+.latest-view-all{color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding-bottom:.5rem;transition:color .2s}
+.latest-view-all:hover{color:var(--gold)}
+.latest-writings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.latest-writings-grid .writing-card{height:100%}
+.latest-writings-grid .writing-card-copy{padding:1.6rem}
+.latest-writings-grid .w-title{font-size:1.25rem}
+.writing-thumb-placeholder{display:grid;place-items:center;background:linear-gradient(135deg,var(--bg3),var(--bg2))}
+.writing-thumb-placeholder img{width:74px;height:74px;object-fit:contain;transform:none!important}
+.latest-empty{grid-column:1/-1;padding:2.5rem;border:1px dashed var(--border);color:var(--muted);font-size:.8rem;text-align:center}
 
 /* ═══ ABOUT PAGE ═══ */
 #page-about{background:var(--bg)}
@@ -466,6 +479,19 @@ textarea.cf-input{resize:vertical;min-height:130px}
   padding:5rem;background:var(--bg3);
   display:flex;flex-direction:column;justify-content:center;
 }
+.calendly-section{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);min-height:720px;border-top:1px solid var(--border);background:var(--bg)}
+.calendly-intro{padding:5rem;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;border-right:1px solid var(--border)}
+.calendly-intro h2{font-family:"Playfair Display",serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:700;line-height:1.08;margin:0 0 1.5rem;color:var(--text)}
+.calendly-intro h2 em{color:var(--gold);font-weight:400}
+.calendly-intro>p{max-width:430px;color:var(--muted);font-size:.85rem;line-height:1.8;margin:0 0 2rem}
+.calendly-load{border:0;cursor:pointer}
+.calendly-external{margin-top:1.2rem;color:var(--muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:.25rem;transition:color .2s,border-color .2s}
+.calendly-external:hover{color:var(--gold);border-color:var(--gold)}
+.calendly-frame-shell{min-width:0;min-height:720px;background:var(--bg2)}
+.calendly-frame-shell iframe{display:block;width:100%;height:720px;border:0;background:#fff}
+.calendly-placeholder{height:100%;min-height:720px;display:grid;place-content:center;justify-items:center;gap:1.2rem;padding:3rem;text-align:center;color:var(--muted)}
+.calendly-placeholder span{display:grid;place-items:center;width:72px;height:72px;border:1px solid var(--gold);border-radius:50%;font-family:"Playfair Display",serif;font-size:1.8rem;color:var(--gold)}
+.calendly-placeholder p{max-width:320px;font-size:.75rem;line-height:1.7}
 
 footer{
   background:var(--bg);border-top:1px solid var(--border);
@@ -539,6 +565,11 @@ html[data-theme="light"] .btn-primary{color:#fff}
   .stat-item{padding:1.25rem .5rem!important}
   .stat-num{font-size:1.8rem!important}
   .stat-label{font-size:.55rem!important}
+  .latest-writings{padding:3.5rem 1.2rem 4rem}
+  .latest-writings-header{align-items:flex-start;flex-direction:column;margin-bottom:2rem}
+  .latest-writings-header h2{font-size:2.35rem}
+  .latest-writings-grid{grid-template-columns:1fr}
+  .latest-writings-grid .writing-card-copy{padding:1.4rem}
 
   /* ── ABOUT ── */
   .about-body{grid-template-columns:1fr!important;grid-template-rows:260px auto!important}
@@ -590,6 +621,11 @@ html[data-theme="light"] .btn-primary{color:#fff}
   .contact-links-col{padding:1.5rem!important}
   .contact-desc{font-size:.85rem!important}
   .ci-val{font-size:.8rem!important}
+  .calendly-section{grid-template-columns:1fr;min-height:0}
+  .calendly-intro{padding:3rem 1.5rem;border-right:0;border-bottom:1px solid var(--border)}
+  .calendly-intro h2{font-size:2.35rem}
+  .calendly-frame-shell,.calendly-placeholder{min-height:650px}
+  .calendly-frame-shell iframe{height:650px}
 
   /* ── FOOTER ── */
   footer{padding:1.5rem 1.2rem!important}
