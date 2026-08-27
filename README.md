@@ -1,6 +1,6 @@
 # shqipebunjaku.com
 
-Personal portfolio / résumé site for Shqipe Bunjaku. This README is the source of truth for what the project is, how it's structured, and where it's headed — update it whenever the project's scope or structure changes, not just when content changes.
+Personal portfolio / résumé site for Shqipe Bunjaku. This README is the source of truth for what the project is, how it's structured, and where it's headed. Update it whenever the project's scope or structure changes, not just when content changes.
 
 ## What this is
 
@@ -8,17 +8,17 @@ A lightweight single-page personal site built with plain HTML, CSS, and JavaScri
 
 ## Current structure
 
-- `index.html` — page markup and asset entry points
-- `assets/css/styles.css` — all site styling and responsive rules
-- `assets/js/app.js` — page navigation and browser behavior
-- `assets/js/supabase.js` — the shared, environment-configured Supabase client
-- `admin/index.html` — protected post dashboard and rich-text editor at `/admin/`
-- `assets/js/admin.js` / `assets/css/admin.css` — Google auth, post CRUD, image upload, and admin presentation
-- `supabase/migrations/` — database schema, image bucket, and Row Level Security policies
-- `netlify.toml` — production build and clean-URL rewrites
-- `.env.example` — documented public environment variables (copy to `.env` locally)
-- `package.json` / `pnpm-lock.yaml` — development and production build dependencies
-- Client-side "pages" are `<div class="page" id="page-*">` sections toggled by a `goTo(name)` JS router — there is no real navigation/routing, no page reloads
+- `index.html`: page markup and asset entry points
+- `assets/css/styles.css`: all site styling and responsive rules
+- `assets/js/app.js`: page navigation and browser behavior
+- `assets/js/supabase.js`: the shared, environment-configured Supabase client
+- `admin/index.html`: protected post dashboard and rich-text editor at `/admin/`
+- `assets/js/admin.js` / `assets/css/admin.css`: Google auth, post CRUD, image upload, and admin presentation
+- `supabase/migrations/`: database schema, image bucket, and Row Level Security policies
+- `netlify.toml`: production build and clean-URL rewrites
+- `.env.example`: documented public environment variables (copy to `.env` locally)
+- `package.json` / `pnpm-lock.yaml`: development and production build dependencies
+- Client-side "pages" are `<div class="page" id="page-*">` sections toggled by a `goTo(name)` JS router. There is no real navigation/routing and no page reloads.
 - Fonts: Google Fonts (Playfair Display + Inter)
 - Color theme: dark background, gold accent (`--gold: #C9A96E`)
 
@@ -36,7 +36,7 @@ A lightweight single-page personal site built with plain HTML, CSS, and JavaScri
 
 ## How it's deployed
 
-Hosted on Netlify (repo history shows an "Initial commit via Netlify" commit — deploys are likely triggered by pushes to this repo).
+Hosted on Netlify. Repo history shows an "Initial commit via Netlify" commit, so deploys are likely triggered by pushes to this repo.
 
 ## Local development
 
@@ -72,15 +72,15 @@ The public site supports dark, light, and system themes. The selected preference
 
 ## Roadmap / future direction
 
-_(Update this section as plans change — it should always reflect current intent, not history.)_
+_(Update this section as plans change. It should always reflect current intent, not history.)_
 
-- [ ] TBD — add planned features/changes here as they're decided
+- [ ] TBD: add planned features/changes here as they're decided
 
 ## Changelog
 
-Track structural or scope changes here (new tooling, new pages, deployment changes) — not routine copy edits.
+Track structural or scope changes here (new tooling, new pages, deployment changes), not routine copy edits.
 
-- 2026-08-26 — Repo cloned locally; README created to track project scope and structure going forward.
-- 2026-08-27 — Split CSS and JavaScript out of `index.html`; added Vite and a shared environment-configured Supabase client.
-- 2026-08-27 — Added clean public routes, public Supabase writings, and a Google-restricted publishing dashboard with rich-text editing and image uploads.
-- 2026-08-27 — Added consistent site footers, legal policy routes, cookie consent controls, and persistent dark/light/system themes.
+- 2026-08-26: Repo cloned locally; README created to track project scope and structure going forward.
+- 2026-08-27: Split CSS and JavaScript out of `index.html`; added Vite and a shared environment-configured Supabase client.
+- 2026-08-27: Added clean public routes, public Supabase writings, and a Google-restricted publishing dashboard with rich-text editing and image uploads.
+- 2026-08-27: Added consistent site footers, legal policy routes, cookie consent controls, and persistent dark/light/system themes.

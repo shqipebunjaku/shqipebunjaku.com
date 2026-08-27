@@ -269,7 +269,7 @@ nav{
   font-size:0.8rem;color:var(--text);line-height:1.75;
   padding:0.15rem 0 0.15rem 1.25rem;position:relative;
 }
-.tl-ul li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.tl-ul li::before{content:"•";position:absolute;left:0;color:var(--gold)}
 
 /* ═══ TESTIMONIALS PAGE ═══ */
 #page-testimonials{background:var(--bg)}

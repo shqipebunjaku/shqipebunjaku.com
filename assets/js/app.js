@@ -16,15 +16,15 @@ const routes = {
 
 const pageTitles = {
   home: "Shqipe Bunjaku",
-  about: "About Me — Shqipe Bunjaku",
-  resume: "Resume — Shqipe Bunjaku",
-  testimonials: "Testimonials — Shqipe Bunjaku",
-  writings: "My Writings — Shqipe Bunjaku",
-  certifications: "Certifications — Shqipe Bunjaku",
-  contact: "Contact — Shqipe Bunjaku",
-  privacy: "Privacy Policy — Shqipe Bunjaku",
-  terms: "Terms & Conditions — Shqipe Bunjaku",
-  cookies: "Cookie Policy — Shqipe Bunjaku",
+  about: "About Me | Shqipe Bunjaku",
+  resume: "Resume | Shqipe Bunjaku",
+  testimonials: "Testimonials | Shqipe Bunjaku",
+  writings: "My Writings | Shqipe Bunjaku",
+  certifications: "Certifications | Shqipe Bunjaku",
+  contact: "Contact | Shqipe Bunjaku",
+  privacy: "Privacy Policy | Shqipe Bunjaku",
+  terms: "Terms & Conditions | Shqipe Bunjaku",
+  cookies: "Cookie Policy | Shqipe Bunjaku",
 };
 
 let current = null;
@@ -279,7 +279,7 @@ async function loadArticle(slug) {
     return;
   }
 
-  document.title = `${post.title} — Shqipe Bunjaku`;
+  document.title = `${post.title} | Shqipe Bunjaku`;
   const tags = Array.isArray(post.tags) ? post.tags.join(" · ") : "Writing";
   const cover = post.cover_image_url
     ? `<img class="article-cover" src="${escapeHtml(post.cover_image_url)}" alt="${escapeHtml(post.title)}">`
