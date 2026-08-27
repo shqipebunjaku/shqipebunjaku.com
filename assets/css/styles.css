@@ -524,6 +524,7 @@ html[data-theme="light"] .btn-primary{color:#fff}
 
   /* ── NAV ── */
   nav{padding:0 1.2rem;height:54px}
+  .page{top:54px}
   .nav-logo{width:40px;height:50px}
   .nav-logo img{width:39px;height:39px}
   .nav-links{display:none!important}
@@ -647,7 +648,7 @@ html[data-theme="light"] .btn-primary{color:#fff}
 .mob-nav a{
   font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted);padding:1rem 1.5rem;border-bottom:1px solid var(--border);
-  cursor:pointer;font-weight:500;display:block;
+  cursor:pointer;font-weight:500;display:block;text-decoration:none;
   transition:color .2s;
 }
 .mob-nav a:last-child{border-bottom:none}
