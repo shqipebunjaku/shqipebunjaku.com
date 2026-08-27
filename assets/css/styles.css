@@ -42,11 +42,10 @@ nav{
   backdrop-filter:blur(12px);
 }
 .nav-logo{
-  font-family:"Playfair Display",serif;
-  font-size:1.2rem;font-weight:700;color:var(--text);text-decoration:none;
-  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  width:48px;height:58px;text-decoration:none;cursor:pointer;
 }
-.nav-logo span{color:var(--gold)}
+.nav-logo img{display:block;width:46px;height:46px;object-fit:contain}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
 .nav-links a{
   font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
@@ -499,7 +498,8 @@ html[data-theme="light"] .btn-primary{color:#fff}
 
   /* ── NAV ── */
   nav{padding:0 1.2rem;height:54px}
-  .nav-logo{font-size:1rem}
+  .nav-logo{width:40px;height:50px}
+  .nav-logo img{width:39px;height:39px}
   .nav-links{display:none!important}
   .nav-tools{display:none}
   .mob-menu-btn{display:flex!important}
