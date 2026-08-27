@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Admin — Shqipe Bunjaku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="auth-view" id="authView" hidden>
+      <a class="admin-mark" href="/" aria-label="Back to website">S<span>.</span>B</a>
+      <div class="auth-card">
+        <p class="eyebrow">Private administration</p>
+        <h1>Welcome back,<br><em>Shqipe.</em></h1>
+        <p>Sign in with the authorized Google account to manage your writings.</p>
+        <button class="google-button" id="googleSignIn" type="button">
+          <span class="google-icon">G</span> Continue with Google
+        </button>
+        <p class="auth-note">Access is restricted to shqipeebunjakuu@gmail.com.</p>
+      </div>
+    </section>
+
+    <section class="auth-view" id="deniedView" hidden>
+      <div class="auth-card">
+        <p class="eyebrow">Access denied</p>
+        <h1>This account is<br><em>not authorized.</em></h1>
+        <p>Only shqipeebunjakuu@gmail.com can access this dashboard.</p>
+        <button class="secondary-button" id="tryAgain" type="button">Try another Google account</button>
+      </div>
+    </section>
+
+    <section class="auth-view" id="configView" hidden>
+      <div class="auth-card">
+        <p class="eyebrow">Setup required</p>
+        <h1>Connect your<br><em>Supabase project.</em></h1>
+        <p>Add the public Supabase environment variables, then rebuild the site. Setup instructions are included in the README.</p>
+      </div>
+    </section>
+
+    <section class="dashboard" id="dashboardView" hidden>
+      <header class="dashboard-header">
+        <div>
+          <a class="admin-mark small" href="/" aria-label="Back to website">S<span>.</span>B</a>
+          <h1>Dashboard</h1>
+          <p id="adminEmail"></p>
+        </div>
+        <button class="text-button" id="signOut" type="button">&#8617; Sign out</button>
+      </header>
+
+      <nav class="admin-tabs" aria-label="Dashboard sections">
+        <button class="admin-tab active" type="button">Posts (<span id="postCount">0</span>)</button>
+      </nav>
+
+      <button class="primary-button new-post-button" id="newPost" type="button"><span>+</span> New Post</button>
+      <div class="post-list" id="postList"><p class="empty-state">Loading posts&hellip;</p></div>
+    </section>
+
+    <section class="editor-view" id="editorView" hidden>
+      <button class="text-button back-button" id="backToDashboard" type="button">&larr; Back to Dashboard</button>
+      <h1 id="editorHeading">New Post</h1>
+
+      <form id="postForm">
+        <input id="postId" type="hidden">
+        <label class="field">
+          <span>Title</span>
+          <input id="title" name="title" type="text" placeholder="Post title" required maxlength="180">
+        </label>
+        <label class="field">
+          <span>Slug</span>
+          <input id="slug" name="slug" type="text" placeholder="post-url-slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*">
+          <small>Used in the article URL: shqipebunjaku.com/writings/your-slug</small>
+        </label>
+        <label class="field">
+          <span>Excerpt</span>
+          <textarea id="excerpt" name="excerpt" placeholder="Brief description of the post" required maxlength="320" rows="2"></textarea>
+        </label>
+        <div class="field">
+          <span>Cover image</span>
+          <label class="file-drop" id="coverDrop">
+            <input id="coverImage" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
+            <span class="file-icon">&#8593;</span>
+            <strong>Attach a cover image</strong>
+            <small>JPEG, PNG, WebP or AVIF · maximum 8 MB</small>
+          </label>
+          <p class="help-text">Recommended size: 1600 × 900 px (16:9). Keep important details near the center for thumbnails.</p>
+          <div class="cover-preview" id="coverPreview" hidden>
+            <img id="coverPreviewImage" alt="Cover preview">
+            <button id="removeCover" type="button" aria-label="Remove cover image">Remove</button>
+          </div>
+        </div>
+        <label class="field">
+          <span>Tags (comma separated)</span>
+          <input id="tags" name="tags" type="text" placeholder="product, growth, AI">
+        </label>
+
+        <div class="field editor-field">
+          <span>Content</span>
+          <div class="editor-frame">
+            <div class="editor-toolbar" id="editorToolbar" role="toolbar" aria-label="Article formatting">
+              <button type="button" data-command="undo" title="Undo">&#8630;</button>
+              <button type="button" data-command="redo" title="Redo">&#8631;</button>
+              <i></i>
+              <button type="button" data-command="bold" title="Bold"><b>B</b></button>
+              <button type="button" data-command="italic" title="Italic"><em>I</em></button>
+              <button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button>
+              <button type="button" data-block="pre" title="Code block">&lt;/&gt;</button>
+              <i></i>
+              <button type="button" data-block="h1" title="Heading 1">H1</button>
+              <button type="button" data-block="h2" title="Heading 2">H2</button>
+              <button type="button" data-block="h3" title="Heading 3">H3</button>
+              <i></i>
+              <button type="button" data-command="insertUnorderedList" title="Bulleted list">&#9776;</button>
+              <button type="button" data-command="insertOrderedList" title="Numbered list">1.</button>
+              <button type="button" data-block="blockquote" title="Quote">&#10077;</button>
+              <button type="button" data-command="insertHorizontalRule" title="Divider">&mdash;</button>
+              <i></i>
+              <button type="button" id="insertLink" title="Add link">&#128279;</button>
+              <button type="button" id="insertImage" title="Add image">&#9638;</button>
+              <button type="button" id="insertEmoji" title="Add emoji">&#9786;</button>
+              <input id="inlineImage" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+            </div>
+            <div id="contentEditor" class="content-editor" contenteditable="true" data-placeholder="Write your article here..." role="textbox" aria-multiline="true"></div>
+          </div>
+        </div>
+
+        <div class="form-message" id="formMessage" role="status"></div>
+        <div class="editor-actions">
+          <button class="secondary-button" id="saveDraft" type="button">Save draft</button>
+          <button class="primary-button" id="publishPost" type="submit">Publish post</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="/assets/js/admin.js"></script>
+</body>
+</html>

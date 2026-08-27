@@ -1,0 +1,192 @@
+import DOMPurify from "dompurify";
+import { supabase, isSupabaseConfigured } from "./supabase.js";
+
+const routes = {
+  "/": "home",
+  "/about-me": "about",
+  "/resume": "resume",
+  "/testimonials": "testimonials",
+  "/writings": "writings",
+  "/certifications": "certifications",
+  "/contact": "contact",
+};
+
+const pageTitles = {
+  home: "Shqipe Bunjaku",
+  about: "About Me — Shqipe Bunjaku",
+  resume: "Resume — Shqipe Bunjaku",
+  testimonials: "Testimonials — Shqipe Bunjaku",
+  writings: "My Writings — Shqipe Bunjaku",
+  certifications: "Certifications — Shqipe Bunjaku",
+  contact: "Contact — Shqipe Bunjaku",
+};
+
+let current = null;
+let postsLoaded = false;
+
+function normalizePath(pathname) {
+  if (pathname.length > 1) return pathname.replace(/\/$/, "");
+  return pathname;
+}
+
+function routeFromPath(pathname) {
+  const path = normalizePath(pathname);
+  if (path.startsWith("/writings/") && path.split("/").filter(Boolean).length === 2) {
+    return { page: "article", slug: decodeURIComponent(path.split("/").pop()) };
+  }
+  return { page: routes[path] || "home" };
+}
+
+function toggleMenu() {
+  document.getElementById("mobNav")?.classList.toggle("open");
+}
+
+function closeMenu() {
+  document.getElementById("mobNav")?.classList.remove("open");
+}
+
+function showPage(page) {
+  const next = document.getElementById(`page-${page}`);
+  if (!next) return;
+
+  document.querySelectorAll(".page").forEach((element) => {
+    element.classList.toggle("active", element === next);
+    if (element !== next) element.classList.remove("exit");
+  });
+  next.scrollTop = 0;
+  current = page;
+  if (pageTitles[page]) document.title = pageTitles[page];
+
+  document.querySelectorAll("[data-page]").forEach((link) => {
+    link.classList.toggle("active", link.dataset.page === page);
+  });
+
+  if (page === "writings") loadPosts();
+}
+
+async function navigate(pathname, { replace = false } = {}) {
+  const path = normalizePath(pathname);
+  const route = routeFromPath(path);
+
+  if (replace) window.history.replaceState({}, "", path);
+  else if (window.location.pathname !== path) window.history.pushState({}, "", path);
+
+  showPage(route.page);
+  closeMenu();
+
+  if (route.page === "article") await loadArticle(route.slug);
+}
+
+function formatDate(date) {
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date));
+}
+
+function escapeHtml(value = "") {
+  const element = document.createElement("div");
+  element.textContent = value;
+  return element.innerHTML;
+}
+
+function postCard(post) {
+  const tags = Array.isArray(post.tags) ? post.tags.join(" · ") : "Article";
+  const cover = post.cover_image_url
+    ? `<div class="writing-thumb"><img src="${escapeHtml(post.cover_image_url)}" alt="" loading="lazy"></div>`
+    : "";
+
+  return `<a href="/writings/${encodeURIComponent(post.slug)}" class="writing-card writing-card-db">
+    ${cover}
+    <div class="writing-card-copy">
+      <div class="w-tag">${escapeHtml(tags)} · ${formatDate(post.published_at || post.created_at)}</div>
+      <div class="w-title">${escapeHtml(post.title)}</div>
+      <p class="w-excerpt">${escapeHtml(post.excerpt || "")}</p>
+      <span class="writing-read">Read article &rarr;</span>
+    </div>
+  </a>`;
+}
+
+async function loadPosts() {
+  if (postsLoaded) return;
+  const grid = document.getElementById("writingsGrid");
+  const loading = document.getElementById("writingsLoading");
+  if (!grid) return;
+
+  if (!isSupabaseConfigured) {
+    loading?.remove();
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select("id,title,slug,excerpt,cover_image_url,tags,published_at,created_at")
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+
+  loading?.remove();
+  if (error) {
+    console.error("Unable to load writings", error);
+    return;
+  }
+
+  if (data?.length) grid.insertAdjacentHTML("afterbegin", data.map(postCard).join(""));
+  postsLoaded = true;
+}
+
+async function loadArticle(slug) {
+  const container = document.getElementById("articleContent");
+  if (!container) return;
+
+  if (!isSupabaseConfigured) {
+    container.innerHTML = `<a class="article-back" href="/writings">&larr; Back to writings</a>
+      <div class="article-message"><h1>Supabase is not configured</h1><p>Add the public project variables to load this article.</p></div>`;
+    return;
+  }
+
+  container.innerHTML = `<a class="article-back" href="/writings">&larr; Back to writings</a><div class="writing-loading">Loading article&hellip;</div>`;
+  const { data: post, error } = await supabase
+    .from("posts")
+    .select("title,excerpt,content,cover_image_url,tags,published_at,created_at")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+
+  if (error || !post) {
+    container.innerHTML = `<a class="article-back" href="/writings">&larr; Back to writings</a>
+      <div class="article-message"><h1>Article not found</h1><p>This writing may have moved or is not published yet.</p></div>`;
+    return;
+  }
+
+  document.title = `${post.title} — Shqipe Bunjaku`;
+  const tags = Array.isArray(post.tags) ? post.tags.join(" · ") : "Writing";
+  const cover = post.cover_image_url
+    ? `<img class="article-cover" src="${escapeHtml(post.cover_image_url)}" alt="${escapeHtml(post.title)}">`
+    : "";
+
+  container.innerHTML = `<a class="article-back" href="/writings">&larr; Back to writings</a>
+    <header class="article-header">
+      <div class="page-eyebrow">${escapeHtml(tags)}</div>
+      <h1>${escapeHtml(post.title)}</h1>
+      <p>${escapeHtml(post.excerpt || "")}</p>
+      <time>${formatDate(post.published_at || post.created_at)}</time>
+    </header>
+    ${cover}
+    <div class="article-body">${DOMPurify.sanitize(post.content || "")}</div>`;
+}
+
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href]");
+  if (!link || link.target === "_blank" || link.origin !== window.location.origin) return;
+  if (link.pathname.startsWith("/admin")) return;
+  event.preventDefault();
+  navigate(link.pathname);
+});
+
+window.addEventListener("popstate", () => navigate(window.location.pathname, { replace: true }));
+Object.assign(window, { toggleMenu, closeMenu });
+
+navigate(window.location.pathname, { replace: true });
+
+export { supabase, isSupabaseConfigured };
