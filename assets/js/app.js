@@ -93,23 +93,15 @@ function initializeCookieConsent() {
   });
 }
 
-function initializeCalendly() {
+function loadCalendly() {
   const shell = document.getElementById("calendlyFrameShell");
-  const button = document.querySelector("[data-load-calendly]");
-  if (!shell || !button) return;
-
-  button.addEventListener("click", () => {
-    if (shell.querySelector("iframe")) return;
-    const iframe = document.createElement("iframe");
-    iframe.src = "https://calendly.com/shqipeebunjakuu/30min?embed_domain=shqipebunjaku.com&embed_type=Inline";
-    iframe.title = "Schedule a 30-minute meeting with Shqipe Bunjaku";
-    iframe.loading = "lazy";
-    iframe.allow = "payment";
-    shell.replaceChildren(iframe);
-    button.textContent = "Calendar loaded";
-    button.disabled = true;
-    iframe.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  if (!shell || shell.querySelector("iframe")) return;
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://calendly.com/shqipeebunjakuu/30min?embed_domain=shqipebunjaku.com&embed_type=Inline";
+  iframe.title = "Schedule a 30-minute meeting with Shqipe Bunjaku";
+  iframe.loading = "lazy";
+  iframe.allow = "payment";
+  shell.replaceChildren(iframe);
 }
 
 function normalizePath(pathname) {
@@ -151,6 +143,7 @@ function showPage(page) {
 
   if (page === "home") loadLatestPosts();
   if (page === "writings") loadPosts();
+  if (page === "contact") loadCalendly();
 }
 
 async function navigate(pathname, { replace = false } = {}) {
@@ -310,7 +303,6 @@ Object.assign(window, { toggleMenu, closeMenu });
 ensureSiteFooters();
 initializeTheme();
 initializeCookieConsent();
-initializeCalendly();
 navigate(window.location.pathname, { replace: true });
 
 export { supabase, isSupabaseConfigured };
