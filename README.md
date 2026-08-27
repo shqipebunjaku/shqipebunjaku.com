@@ -59,7 +59,9 @@ For Netlify, configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the s
 
 Only the Google identity `shqipeebunjakuu@gmail.com` is accepted by the admin application. Database and Storage Row Level Security repeat that email-and-provider check, so authorization does not rely on the browser UI. The account can create, edit, publish, unpublish, and delete all posts and upload public post images.
 
-Public routes are `/`, `/about-me`, `/resume`, `/testimonials`, `/writings`, `/writings/:slug`, `/certifications`, and `/contact`. Netlify rewrites these routes to the public app while preserving their URL.
+Public routes are `/`, `/about-me`, `/resume`, `/testimonials`, `/writings`, `/writings/:slug`, `/certifications`, `/contact`, `/privacy-policy`, `/terms-and-conditions`, and `/cookies-policy`. Netlify rewrites these routes to the public app while preserving their URL.
+
+The public site supports dark, light, and system themes. The selected preference and cookie-banner choice are stored in browser local storage. No optional analytics or advertising cookies are currently enabled.
 
 ## Conventions
 
@@ -81,3 +83,4 @@ Track structural or scope changes here (new tooling, new pages, deployment chang
 - 2026-08-26 — Repo cloned locally; README created to track project scope and structure going forward.
 - 2026-08-27 — Split CSS and JavaScript out of `index.html`; added Vite and a shared environment-configured Supabase client.
 - 2026-08-27 — Added clean public routes, public Supabase writings, and a Google-restricted publishing dashboard with rich-text editing and image uploads.
+- 2026-08-27 — Added consistent site footers, legal policy routes, cookie consent controls, and persistent dark/light/system themes.

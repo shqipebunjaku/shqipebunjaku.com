@@ -9,6 +9,9 @@ const routes = {
   "/writings": "writings",
   "/certifications": "certifications",
   "/contact": "contact",
+  "/privacy-policy": "privacy",
+  "/terms-and-conditions": "terms",
+  "/cookies-policy": "cookies",
 };
 
 const pageTitles = {
@@ -19,10 +22,75 @@ const pageTitles = {
   writings: "My Writings — Shqipe Bunjaku",
   certifications: "Certifications — Shqipe Bunjaku",
   contact: "Contact — Shqipe Bunjaku",
+  privacy: "Privacy Policy — Shqipe Bunjaku",
+  terms: "Terms & Conditions — Shqipe Bunjaku",
+  cookies: "Cookie Policy — Shqipe Bunjaku",
 };
 
 let current = null;
 let postsLoaded = false;
+
+const footerMarkup = `<div class="footer-inner">
+  <span class="footer-copy">&copy; 2026 Shqipe Bunjaku. All rights reserved.</span>
+  <div class="footer-links" role="navigation" aria-label="Legal and privacy links">
+    <a href="/privacy-policy">Privacy</a>
+    <a href="/terms-and-conditions">Terms</a>
+    <a href="/cookies-policy">Cookies</a>
+    <button class="cookie-settings-trigger" type="button">Cookie settings</button>
+  </div>
+</div>`;
+
+function ensureSiteFooters() {
+  document.querySelectorAll(".page").forEach((page) => {
+    let footer = page.querySelector(":scope > footer");
+    if (!footer) {
+      footer = document.createElement("footer");
+      page.append(footer);
+    }
+    footer.innerHTML = footerMarkup;
+  });
+}
+
+function applyTheme(preference) {
+  const resolved = preference === "system"
+    ? (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+    : preference;
+  document.documentElement.dataset.theme = resolved;
+  document.documentElement.dataset.themePreference = preference;
+  document.documentElement.style.colorScheme = resolved;
+  document.querySelectorAll("[data-theme-select]").forEach((select) => {
+    select.value = preference;
+  });
+}
+
+function initializeTheme() {
+  const saved = localStorage.getItem("sb-theme") || "system";
+  applyTheme(saved);
+  document.querySelectorAll("[data-theme-select]").forEach((select) => {
+    select.addEventListener("change", () => {
+      localStorage.setItem("sb-theme", select.value);
+      applyTheme(select.value);
+    });
+  });
+  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+    if ((localStorage.getItem("sb-theme") || "system") === "system") applyTheme("system");
+  });
+}
+
+function initializeCookieConsent() {
+  const banner = document.getElementById("cookieBanner");
+  if (!localStorage.getItem("sb-cookie-consent")) banner.hidden = false;
+
+  document.addEventListener("click", (event) => {
+    const choice = event.target.closest("[data-cookie-choice]");
+    if (choice) {
+      localStorage.setItem("sb-cookie-consent", choice.dataset.cookieChoice);
+      banner.hidden = true;
+      return;
+    }
+    if (event.target.closest(".cookie-settings-trigger")) banner.hidden = false;
+  });
+}
 
 function normalizePath(pathname) {
   if (pathname.length > 1) return pathname.replace(/\/$/, "");
@@ -187,6 +255,9 @@ document.addEventListener("click", (event) => {
 window.addEventListener("popstate", () => navigate(window.location.pathname, { replace: true }));
 Object.assign(window, { toggleMenu, closeMenu });
 
+ensureSiteFooters();
+initializeTheme();
+initializeCookieConsent();
 navigate(window.location.pathname, { replace: true });
 
 export { supabase, isSupabaseConfigured };

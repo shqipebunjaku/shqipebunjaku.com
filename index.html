@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shqipe Bunjaku</title>
+<script type="module" src="/assets/js/theme-init.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
@@ -20,6 +21,16 @@
     <li><a href="/certifications" data-page="certifications">Certifications</a></li>
     <li><a href="/contact" data-page="contact">Contact</a></li>
   </ul>
+  <div class="nav-tools">
+    <label class="theme-control" aria-label="Website theme">
+      <span>Theme</span>
+      <select data-theme-select>
+        <option value="system">System</option>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </label>
+  </div>
   <button class="mob-menu-btn" onclick="toggleMenu()" id="menuBtn">
     <span></span><span></span><span></span>
   </button>
@@ -34,6 +45,13 @@
   <a href="/writings" data-page="writings">My writings</a>
   <a href="/certifications" data-page="certifications">Certifications</a>
   <a href="/contact" data-page="contact">Contact</a>
+  <label class="mobile-theme-control">Theme
+    <select data-theme-select>
+      <option value="system">System</option>
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+  </label>
 </div>
 
 <!-- HOME -->
@@ -533,6 +551,80 @@
     </div>
   </div>
 </div>
+
+<!-- PRIVACY POLICY -->
+<div class="page" id="page-privacy">
+  <div class="legal-hero"><div class="page-eyebrow">Legal</div><h1 class="page-title">Privacy <em>policy</em></h1></div>
+  <article class="legal-body">
+    <p class="legal-updated">Effective 27 August 2026</p>
+    <h2>Who is responsible for this website</h2>
+    <p>This portfolio is operated by Shqipe Bunjaku. Questions about privacy or personal information can be sent to <a href="mailto:shqipeebunjakuu@gmail.com">shqipeebunjakuu@gmail.com</a>.</p>
+    <h2>Information collected</h2>
+    <p>The public portfolio does not require an account and does not intentionally collect personal information from ordinary visitors. If you contact Shqipe by email or LinkedIn, the information you provide is used only to respond to your enquiry.</p>
+    <p>The private administration area uses Google authentication through Supabase. For the authorized administrator, this may process an email address, name, profile image, authentication identifiers, session information, and security metadata needed to provide and protect the account.</p>
+    <h2>Website infrastructure</h2>
+    <p>Netlify hosts and delivers the website. Supabase provides authentication, database, and image-storage services. These providers may process technical information such as IP addresses, device information, request logs, and security events according to their own privacy terms.</p>
+    <h2>Purposes and legal basis</h2>
+    <p>Information is processed to operate and secure the website, respond to enquiries, publish writings, and maintain the private administration area. Depending on the circumstances, this is based on consent, steps requested before a possible engagement, or legitimate interests in operating a secure professional portfolio.</p>
+    <h2>Retention and sharing</h2>
+    <p>Information is retained only as long as reasonably necessary for the purpose it was received, legal obligations, or security. It is not sold. It may be handled by service providers acting on behalf of the website or disclosed when legally required.</p>
+    <h2>Your choices and rights</h2>
+    <p>You may request access, correction, deletion, restriction, or objection where applicable. You may also withdraw consent. Requests can be sent to the email address above. You may have the right to contact the relevant data-protection authority.</p>
+    <h2>Changes</h2>
+    <p>This policy may be updated as the website or applicable requirements change. The effective date above identifies the latest version.</p>
+  </article>
+</div>
+
+<!-- TERMS -->
+<div class="page" id="page-terms">
+  <div class="legal-hero"><div class="page-eyebrow">Legal</div><h1 class="page-title">Terms &amp; <em>conditions</em></h1></div>
+  <article class="legal-body">
+    <p class="legal-updated">Effective 27 August 2026</p>
+    <h2>About these terms</h2>
+    <p>These terms govern use of shqipebunjaku.com. By using the website, you agree to use it lawfully and in a way that does not interfere with its security, availability, or other visitors.</p>
+    <h2>Portfolio information</h2>
+    <p>The website presents professional background, opinions, writings, and contact information for general informational purposes. Content is not professional, legal, financial, or employment advice and should not be relied upon as such.</p>
+    <h2>Intellectual property</h2>
+    <p>Unless otherwise stated, the website design, original text, images, and articles belong to Shqipe Bunjaku. You may link to public pages and quote brief portions with clear attribution. Republishing substantial content, commercial reuse, or removing attribution requires prior written permission.</p>
+    <h2>External links</h2>
+    <p>Links to third-party websites are provided for convenience. Their content, availability, security, and privacy practices are controlled by those third parties.</p>
+    <h2>Availability and liability</h2>
+    <p>Reasonable care is taken to keep the website accurate and available, but uninterrupted access or complete accuracy is not guaranteed. To the extent permitted by law, the operator is not liable for indirect loss arising from use of, or inability to use, the website.</p>
+    <h2>Acceptable use</h2>
+    <p>You must not attempt unauthorized access, introduce malicious code, scrape the website in a way that disrupts service, impersonate another person, or use the content for unlawful purposes.</p>
+    <h2>Changes and contact</h2>
+    <p>These terms may be updated by publishing a revised version here. Questions can be sent to <a href="mailto:shqipeebunjakuu@gmail.com">shqipeebunjakuu@gmail.com</a>.</p>
+  </article>
+</div>
+
+<!-- COOKIE POLICY -->
+<div class="page" id="page-cookies">
+  <div class="legal-hero"><div class="page-eyebrow">Legal</div><h1 class="page-title">Cookie <em>policy</em></h1></div>
+  <article class="legal-body">
+    <p class="legal-updated">Effective 27 August 2026</p>
+    <h2>How this site uses browser storage</h2>
+    <p>The public portfolio does not currently use advertising or analytics cookies. It stores your theme preference and cookie-banner choice in your browser's local storage so the website can remember them on future visits.</p>
+    <h2>Strictly necessary authentication</h2>
+    <p>The private <code>/admin/</code> area uses Supabase authentication. After the authorized administrator signs in with Google, session information is stored in the browser so the secure dashboard can remain authenticated. This storage is necessary for the requested admin service and is not used for advertising.</p>
+    <h2>Third-party services</h2>
+    <p>Google authentication is used only when the administrator chooses to sign in. Google Fonts, Netlify, and Supabase may receive standard technical requests needed to deliver their services. Their use of information is governed by their respective policies.</p>
+    <h2>Your choices</h2>
+    <p>You can accept the current settings or choose necessary-only storage from the banner. Because no optional analytics or advertising tools are currently enabled, both choices result in no optional cookies being placed. You can reopen the settings from any page footer or clear site data in your browser.</p>
+    <button class="btn-outline cookie-settings-trigger" type="button">Review cookie settings</button>
+  </article>
+</div>
+
+<aside class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieTitle" hidden>
+  <div>
+    <div class="page-eyebrow">Your privacy</div>
+    <h2 id="cookieTitle">A thoughtful, minimal cookie setup.</h2>
+    <p>This site currently uses only local storage and essential authentication storage. No advertising or analytics cookies are enabled. <a href="/cookies-policy">Read the cookie policy</a>.</p>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn-outline" type="button" data-cookie-choice="necessary">Necessary only</button>
+    <button class="btn-primary" type="button" data-cookie-choice="all">Accept all</button>
+  </div>
+</aside>
 
 <script type="module" src="/assets/js/app.js"></script>
 </body>

@@ -149,7 +149,7 @@ function openEditor(post = null) {
   document.getElementById("excerpt").value = post?.excerpt || "";
   document.getElementById("tags").value = post?.tags?.join(", ") || "";
   document.getElementById("contentEditor").innerHTML = post?.content || "";
-  document.getElementById("editorHeading").textContent = post ? "Edit Post" : "New Post";
+  document.getElementById("editorHeading").innerHTML = post ? "Edit <em>post</em>" : "New <em>post</em>";
   document.getElementById("publishPost").textContent = post?.status === "published" ? "Update post" : "Publish post";
   coverFile = null;
   existingCoverUrl = post?.cover_image_url || null;

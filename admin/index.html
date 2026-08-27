@@ -11,9 +11,12 @@
   <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
+  <nav class="admin-nav">
+    <a class="nav-logo" href="/">S<span>.</span>Bunjaku</a>
+    <div class="admin-nav-context"><span>Private workspace</span><i></i><a href="/">View website &rarr;</a></div>
+  </nav>
   <main class="admin-shell">
     <section class="auth-view" id="authView" hidden>
-      <a class="admin-mark" href="/" aria-label="Back to website">S<span>.</span>B</a>
       <div class="auth-card">
         <p class="eyebrow">Private administration</p>
         <h1>Welcome back,<br><em>Shqipe.</em></h1>
@@ -45,8 +48,8 @@
     <section class="dashboard" id="dashboardView" hidden>
       <header class="dashboard-header">
         <div>
-          <a class="admin-mark small" href="/" aria-label="Back to website">S<span>.</span>B</a>
-          <h1>Dashboard</h1>
+          <p class="eyebrow">Content management</p>
+          <h1>Dashboard <em>workspace</em></h1>
           <p id="adminEmail"></p>
         </div>
         <button class="text-button" id="signOut" type="button">&#8617; Sign out</button>
@@ -62,7 +65,8 @@
 
     <section class="editor-view" id="editorView" hidden>
       <button class="text-button back-button" id="backToDashboard" type="button">&larr; Back to Dashboard</button>
-      <h1 id="editorHeading">New Post</h1>
+      <p class="eyebrow">My writings</p>
+      <h1 id="editorHeading">New <em>post</em></h1>
 
       <form id="postForm">
         <input id="postId" type="hidden">
