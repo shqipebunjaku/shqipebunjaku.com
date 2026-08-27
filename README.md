@@ -40,14 +40,14 @@ Hosted on Netlify (repo history shows an "Initial commit via Netlify" commit —
 
 ## Local development
 
-1. Install dependencies with `pnpm install`.
+1. Install dependencies with `npm install`.
 2. Copy `.env.example` to `.env` and fill in the public Supabase project URL and anon/publishable key.
-3. Run `pnpm dev` for local development.
-4. Run `pnpm build` to create the deployable `dist/` directory.
+3. Run `npm run dev` for local development.
+4. Run `npm run build` to create the deployable `dist/` directory.
 
 The Supabase client remains `null` until both variables are configured, so the site can still render before a backend is connected. Import the shared `supabase` export from `assets/js/supabase.js` in future data modules. Never put a Supabase service-role key in this frontend.
 
-For Netlify, configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the site environment, use `pnpm build` as the build command, and publish `dist`.
+For Netlify, configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the site environment, use `npm run build` as the build command, and publish `dist`.
 
 ## Supabase setup
 
