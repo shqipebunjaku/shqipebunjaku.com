@@ -92,17 +92,6 @@ function initializeCookieConsent() {
   });
 }
 
-function loadCalendly() {
-  const shell = document.getElementById("calendlyFrameShell");
-  if (!shell || shell.querySelector("iframe")) return;
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://calendly.com/shqipeebunjakuu/30min?embed_domain=shqipebunjaku.com&embed_type=Inline";
-  iframe.title = "Schedule a 30-minute meeting with Shqipe Bunjaku";
-  iframe.loading = "lazy";
-  iframe.allow = "payment";
-  shell.replaceChildren(iframe);
-}
-
 function normalizePath(pathname) {
   if (pathname.length > 1) return pathname.replace(/\/$/, "");
   return pathname;
@@ -141,7 +130,6 @@ function showPage(page) {
   });
 
   if (page === "writings") loadPosts();
-  if (page === "contact") loadCalendly();
 }
 
 async function navigate(pathname, { replace = false } = {}) {
