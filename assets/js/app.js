@@ -29,7 +29,6 @@ const pageTitles = {
 
 let current = null;
 let postsLoaded = false;
-let latestPostsLoaded = false;
 
 const footerMarkup = `<div class="footer-inner">
   <span class="footer-copy">&copy; 2026 Shqipe Bunjaku. All rights reserved.</span>
@@ -141,7 +140,6 @@ function showPage(page) {
     link.classList.toggle("active", link.dataset.page === page);
   });
 
-  if (page === "home") loadLatestPosts();
   if (page === "writings") loadPosts();
   if (page === "contact") loadCalendly();
 }
@@ -188,37 +186,6 @@ function postCard(post, extraClass = "") {
       <span class="writing-read">Read article &rarr;</span>
     </div>
   </a>`;
-}
-
-async function loadLatestPosts() {
-  if (latestPostsLoaded) return;
-  const grid = document.getElementById("latestWritingsGrid");
-  const loading = document.getElementById("latestWritingsLoading");
-  if (!grid) return;
-
-  if (!isSupabaseConfigured) {
-    if (loading) loading.textContent = "Latest writings will appear here once Supabase is connected.";
-    return;
-  }
-
-  const { data, error } = await supabase
-    .from("posts")
-    .select("id,title,slug,excerpt,cover_image_url,tags,published_at,created_at")
-    .eq("status", "published")
-    .order("published_at", { ascending: false })
-    .limit(3);
-
-  loading?.remove();
-  if (error) {
-    console.error("Unable to load latest writings", error);
-    grid.innerHTML = `<p class="latest-empty">Latest writings are temporarily unavailable.</p>`;
-    return;
-  }
-
-  grid.innerHTML = data?.length
-    ? data.map((post) => postCard(post, "latest-writing-card")).join("")
-    : `<p class="latest-empty">New writing is coming soon.</p>`;
-  latestPostsLoaded = true;
 }
 
 async function loadPosts() {

@@ -166,19 +166,8 @@ nav{
   font-size:2.8rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;
 }
 .stat-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
-.latest-writings{padding:6rem 5rem 7rem;background:var(--bg);border-top:1px solid var(--border)}
-.latest-writings-header{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:3rem}
-.latest-writings-header h2{font-family:"Playfair Display",serif;font-size:clamp(2.5rem,4vw,4.5rem);font-weight:700;line-height:1.05;color:var(--text);margin:0}
-.latest-writings-header h2 em{color:var(--gold);font-weight:400}
-.latest-view-all{color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding-bottom:.5rem;transition:color .2s}
-.latest-view-all:hover{color:var(--gold)}
-.latest-writings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
-.latest-writings-grid .writing-card{height:100%}
-.latest-writings-grid .writing-card-copy{padding:1.6rem}
-.latest-writings-grid .w-title{font-size:1.25rem}
 .writing-thumb-placeholder{display:grid;place-items:center;background:linear-gradient(135deg,var(--bg3),var(--bg2))}
 .writing-thumb-placeholder img{width:74px;height:74px;object-fit:contain;transform:none!important}
-.latest-empty{grid-column:1/-1;padding:2.5rem;border:1px dashed var(--border);color:var(--muted);font-size:.8rem;text-align:center}
 
 /* ═══ ABOUT PAGE ═══ */
 #page-about{background:var(--bg)}
@@ -565,12 +554,6 @@ html[data-theme="light"] .btn-primary{color:#fff}
   .stat-item{padding:1.25rem .5rem!important}
   .stat-num{font-size:1.8rem!important}
   .stat-label{font-size:.55rem!important}
-  .latest-writings{padding:3.5rem 1.2rem 4rem}
-  .latest-writings-header{align-items:flex-start;flex-direction:column;margin-bottom:2rem}
-  .latest-writings-header h2{font-size:2.35rem}
-  .latest-writings-grid{grid-template-columns:1fr}
-  .latest-writings-grid .writing-card-copy{padding:1.4rem}
-
   /* ── ABOUT ── */
   .about-body{grid-template-columns:1fr!important;grid-template-rows:260px auto!important}
   .about-photo-col{height:260px!important;min-height:unset!important;order:-1}
