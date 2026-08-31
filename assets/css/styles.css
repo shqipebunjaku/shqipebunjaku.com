@@ -115,10 +115,15 @@ nav{
   font-size:0.88rem;color:var(--text);line-height:1.9;
   max-width:420px;margin-bottom:1.5rem;font-weight:300;
 }
+.hero-mantra-block{margin-bottom:3rem}
+.hero-mantra-label{
+  font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:0.75rem;
+}
 .hero-mantra{
   font-family:"Playfair Display",serif;font-style:italic;
   font-size:1.15rem;color:var(--gold2);line-height:1.6;
-  max-width:420px;margin-bottom:3rem;
+  max-width:420px;margin-bottom:0;
 }
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
 .btn-primary{
