@@ -563,8 +563,8 @@ html[data-theme="light"] .btn-primary{color:#fff}
 
   /* ── RESUME ── */
   .resume-body{grid-template-columns:1fr!important}
-  .resume-sidebar{padding:1.5rem!important;border-right:none!important;border-bottom:1px solid var(--border)!important}
-  .resume-timeline{padding:1.5rem!important}
+  .resume-sidebar{padding:1.5rem!important;border-right:none!important;border-bottom:none!important;border-top:1px solid var(--border)!important;order:2}
+  .resume-timeline{padding:1.5rem!important;order:1}
   .tl-role{font-size:.9rem!important}
   .tl-ul li{font-size:.75rem!important}
 
